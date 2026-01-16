@@ -16,9 +16,14 @@
     </style>
 </head>
 
-<body
-    class="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 min-h-screen flex items-center justify-center p-4">
-    <div class="w-full max-w-md">
+<body class="min-h-screen flex items-center justify-center p-4 relative">
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0">
+        <img src="{{ asset('images/bg-puskesmas.jpg') }}" alt="Puskesmas Ukui" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black/50"></div>
+    </div>
+
+    <div class="w-full max-w-md relative z-10">
         <!-- Logo -->
         <div class="text-center mb-8">
             <div
