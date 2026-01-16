@@ -43,17 +43,21 @@
             <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-4">
                 <div class="flex items-center gap-4 flex-wrap">
                     <label class="text-sm font-medium text-slate-700">Tambah Pegawai:</label>
-                    <select id="employeeSelector" class="flex-1 min-w-[200px] px-4 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-sm">
+                    <select id="employeeSelector"
+                        class="flex-1 min-w-[200px] px-4 py-2.5 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-sm">
                         <option value="">-- Pilih Pegawai --</option>
                         @foreach($employees as $emp)
                             <option value="{{ $emp->id }}" data-name="{{ $emp->name }}" data-position="{{ $emp->position ?? '' }}">
-                                {{ $emp->name }} {{ $emp->position ? '('.$emp->position.')' : '' }}
+                                {{ $emp->name }} {{ $emp->position ? '(' . $emp->position . ')' : '' }}
                             </option>
                         @endforeach
                     </select>
-                    <button type="button" onclick="addEmployee()" class="inline-flex items-center gap-2 bg-emerald-600 text-white px-4 py-2.5 rounded-xl font-medium text-sm hover:bg-emerald-700 transition-all">
+                    <button type="button" onclick="addEmployee()"
+                        class="inline-flex items-center gap-2 bg-emerald-600 text-white px-4 py-2.5 rounded-xl font-medium text-sm hover:bg-emerald-700 transition-all">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+                            <path fill-rule="evenodd"
+                                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                                clip-rule="evenodd" />
                         </svg>
                         Tambah
                     </button>
@@ -73,11 +77,31 @@
                             </tr>
                         </thead>
                         <tbody class="text-amber-800">
-                            <tr><td class="py-1.5 px-3">1 - 20</td><td class="py-1.5 px-3">Sangat Rendah</td><td class="py-1.5 px-3 font-medium">1</td></tr>
-                            <tr><td class="py-1.5 px-3">21 - 40</td><td class="py-1.5 px-3">Rendah</td><td class="py-1.5 px-3 font-medium">2</td></tr>
-                            <tr><td class="py-1.5 px-3">41 - 60</td><td class="py-1.5 px-3">Cukup</td><td class="py-1.5 px-3 font-medium">3</td></tr>
-                            <tr><td class="py-1.5 px-3">61 - 80</td><td class="py-1.5 px-3">Baik</td><td class="py-1.5 px-3 font-medium">4</td></tr>
-                            <tr><td class="py-1.5 px-3">81 - 100</td><td class="py-1.5 px-3">Sangat Baik</td><td class="py-1.5 px-3 font-medium">5</td></tr>
+                            <tr>
+                                <td class="py-1.5 px-3">1 - 20</td>
+                                <td class="py-1.5 px-3">Sangat Rendah</td>
+                                <td class="py-1.5 px-3 font-medium">1</td>
+                            </tr>
+                            <tr>
+                                <td class="py-1.5 px-3">21 - 40</td>
+                                <td class="py-1.5 px-3">Rendah</td>
+                                <td class="py-1.5 px-3 font-medium">2</td>
+                            </tr>
+                            <tr>
+                                <td class="py-1.5 px-3">41 - 60</td>
+                                <td class="py-1.5 px-3">Cukup</td>
+                                <td class="py-1.5 px-3 font-medium">3</td>
+                            </tr>
+                            <tr>
+                                <td class="py-1.5 px-3">61 - 80</td>
+                                <td class="py-1.5 px-3">Baik</td>
+                                <td class="py-1.5 px-3 font-medium">4</td>
+                            </tr>
+                            <tr>
+                                <td class="py-1.5 px-3">81 - 100</td>
+                                <td class="py-1.5 px-3">Sangat Baik</td>
+                                <td class="py-1.5 px-3 font-medium">5</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -110,25 +134,31 @@
                         <table class="w-full" id="assessmentTable">
                             <thead class="bg-slate-50">
                                 <tr>
-                                    <th class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider sticky left-0 bg-slate-50 min-w-[200px]">
+                                    <th
+                                        class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider sticky left-0 bg-slate-50 min-w-[200px]">
                                         Pegawai</th>
                                     @foreach($criteria as $c)
-                                        <th class="px-6 py-4 text-center text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                        <th
+                                            class="px-6 py-4 text-center text-xs font-semibold text-slate-500 uppercase tracking-wider">
                                             <div>{{ $c->code }}</div>
                                             <div class="font-normal text-slate-400 normal-case">{{ $c->name }}</div>
                                         </th>
                                     @endforeach
-                                    <th class="px-4 py-4 text-center text-xs font-semibold text-slate-500 uppercase tracking-wider w-16">Aksi</th>
+                                    <th
+                                        class="px-4 py-4 text-center text-xs font-semibold text-slate-500 uppercase tracking-wider w-16">
+                                        Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100" id="employeeTableBody">
                                 @php
                                     // Only show employees that have ratings for this period, or all if no ratings yet
                                     $employeesWithRatings = !empty($ratings) ? $employees->filter(fn($e) => isset($ratings[$e->id])) : $employees;
-                                    if($employeesWithRatings->isEmpty()) $employeesWithRatings = $employees;
+                                    if ($employeesWithRatings->isEmpty())
+                                        $employeesWithRatings = $employees;
                                 @endphp
                                 @foreach($employeesWithRatings as $employee)
-                                    <tr class="hover:bg-slate-50 transition-colors employee-row" data-employee-id="{{ $employee->id }}">
+                                    <tr class="hover:bg-slate-50 transition-colors employee-row"
+                                        data-employee-id="{{ $employee->id }}">
                                         <td class="px-6 py-4 text-sm font-medium text-slate-800 sticky left-0 bg-white">
                                             {{ $employee->name }}
                                             @if($employee->position)
@@ -143,9 +173,14 @@
                                             </td>
                                         @endforeach
                                         <td class="px-4 py-4 text-center">
-                                            <button type="button" onclick="removeEmployee(this, {{ $employee->id }})" class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="Hapus dari penilaian">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                            <button type="button" onclick="removeEmployee(this, {{ $employee->id }})"
+                                                class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                                                title="Hapus dari penilaian">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                                    fill="currentColor">
+                                                    <path fill-rule="evenodd"
+                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                        clip-rule="evenodd" />
                                                 </svg>
                                             </button>
                                         </td>
@@ -156,8 +191,10 @@
                     </div>
 
                     <div id="emptyState" class="hidden p-12 text-center text-slate-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 text-slate-300" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                         <p class="font-medium">Belum ada pegawai yang dipilih</p>
                         <p class="text-sm mt-1">Gunakan dropdown di atas untuk menambahkan pegawai yang akan dinilai</p>
@@ -173,133 +210,124 @@
                             </svg>
                             Simpan & Hitung SAW
                         </button>
-                        <a href="{{ route('assessment.result', ['period_id' => $selectedPeriod->id]) }}"
-                            class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-6 py-3 rounded-xl font-medium hover:bg-emerald-100 transition-all border border-emerald-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm2 10a1 1 0 10-2 0v3a1 1 0 102 0v-3zm2-3a1 1 0 011 1v5a1 1 0 11-2 0v-5a1 1 0 011-1zm4-1a1 1 0 10-2 0v7a1 1 0 102 0V8z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            Lihat Hasil
-                        </a>
                     </div>
                 </form>
             </div>
         </div>
 
         <script>
-            const criteriaData = @json($criteria);
-            const ratingsData = @json($ratings);
-            
-            function updateEmptyState() {
-                const tbody = document.getElementById('employeeTableBody');
-                const emptyState = document.getElementById('emptyState');
-                const table = document.getElementById('assessmentTable');
-                
-                if (tbody.children.length === 0) {
-                    emptyState.classList.remove('hidden');
-                    table.classList.add('hidden');
-                } else {
-                    emptyState.classList.add('hidden');
-                    table.classList.remove('hidden');
-                }
-            }
+             const criteriaData = @json($criteria);
+                    const ratingsData = @json($ratings);
 
-            function removeEmployee(btn, employeeId) {
-                const row = btn.closest('tr');
-                row.remove();
-                
-                // Show the employee back in dropdown
-                const selector = document.getElementById('employeeSelector');
-                const option = selector.querySelector(`option[value="${employeeId}"]`);
-                if (option) {
-                    option.disabled = false;
-                    option.classList.remove('hidden');
-                }
-                
-                updateEmptyState();
-            }
+                    function updateEmptyState() {
+                        const tbody = document.getElementById('employeeTableBody');
+                        const emptyState = document.getElementById('emptyState');
+                        const table = document.getElementById('assessmentTable');
 
-            function addEmployee() {
-                const selector = document.getElementById('employeeSelector');
-                const selectedOption = selector.options[selector.selectedIndex];
-                
-                if (!selectedOption.value) {
-                    alert('Pilih pegawai terlebih dahulu');
-                    return;
-                }
-
-                const employeeId = selectedOption.value;
-                const employeeName = selectedOption.dataset.name;
-                const employeePosition = selectedOption.dataset.position;
-
-                // Check if already exists
-                if (document.querySelector(`tr[data-employee-id="${employeeId}"]`)) {
-                    alert('Pegawai sudah ada dalam daftar');
-                    return;
-                }
-
-                // Create new row
-                const tbody = document.getElementById('employeeTableBody');
-                const row = document.createElement('tr');
-                row.className = 'hover:bg-slate-50 transition-colors employee-row';
-                row.dataset.employeeId = employeeId;
-
-                let cellsHtml = `
-                    <td class="px-6 py-4 text-sm font-medium text-slate-800 sticky left-0 bg-white">
-                        ${employeeName}
-                        ${employeePosition ? `<span class="block text-xs text-slate-400">${employeePosition}</span>` : ''}
-                    </td>
-                `;
-
-                criteriaData.forEach(c => {
-                    const existingValue = ratingsData[employeeId]?.[c.id] ?? '';
-                    cellsHtml += `
-                        <td class="px-6 py-4">
-                            <input type="number" name="ratings[${employeeId}][${c.id}]"
-                                value="${existingValue}" step="0.01" min="0" required
-                                class="w-24 px-3 py-2 rounded-lg border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-center text-sm">
-                        </td>
-                    `;
-                });
-
-                cellsHtml += `
-                    <td class="px-4 py-4 text-center">
-                        <button type="button" onclick="removeEmployee(this, ${employeeId})" class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="Hapus dari penilaian">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                            </svg>
-                        </button>
-                    </td>
-                `;
-
-                row.innerHTML = cellsHtml;
-                tbody.appendChild(row);
-
-                // Disable option in dropdown
-                selectedOption.disabled = true;
-                selectedOption.classList.add('hidden');
-                selector.value = '';
-
-                updateEmptyState();
-            }
-
-            // Mark existing employees as disabled in dropdown on load
-            document.addEventListener('DOMContentLoaded', function() {
-                const existingRows = document.querySelectorAll('.employee-row');
-                const selector = document.getElementById('employeeSelector');
-                
-                existingRows.forEach(row => {
-                    const id = row.dataset.employeeId;
-                    const option = selector.querySelector(`option[value="${id}"]`);
-                    if (option) {
-                        option.disabled = true;
-                        option.classList.add('hidden');
+                        if (tbody.children.length === 0) {
+                            emptyState.classList.remove('hidden');
+                            table.classList.add('hidden');
+                        } else {
+                            emptyState.classList.add('hidden');
+                            table.classList.remove('hidden');
+                        }
                     }
-                });
-                
-                updateEmptyState();
-            });
-        </script>
+
+                    function removeEmployee(btn, employeeId) {
+                        const row = btn.closest('tr');
+                        row.remove();
+
+                        // Show the employee back in dropdown
+                        const selector = document.getElementById('employeeSelector');
+                        const option = selector.querySelector(`option[value="${employeeId}"]`);
+                        if (option) {
+                            option.disabled = false;
+                            option.classList.remove('hidden');
+                        }
+
+                        updateEmptyState();
+                    }
+
+                    function addEmployee() {
+                        const selector = document.getElementById('employeeSelector');
+                        const selectedOption = selector.options[selector.selectedIndex];
+
+                        if (!selectedOption.value) {
+                            alert('Pilih pegawai terlebih dahulu');
+                            return;
+                        }
+
+                        const employeeId = selectedOption.value;
+                        const employeeName = selectedOption.dataset.name;
+                        const employeePosition = selectedOption.dataset.position;
+
+                        // Check if already exists
+                        if (document.querySelector(`tr[data-employee-id="${employeeId}"]`)) {
+                            alert('Pegawai sudah ada dalam daftar');
+                            return;
+                        }
+
+                        // Create new row
+                        const tbody = document.getElementById('employeeTableBody');
+                        const row = document.createElement('tr');
+                        row.className = 'hover:bg-slate-50 transition-colors employee-row';
+                        row.dataset.employeeId = employeeId;
+
+                        let cellsHtml = `
+                            <td class="px-6 py-4 text-sm font-medium text-slate-800 sticky left-0 bg-white">
+                                ${employeeName}
+                                ${employeePosition ? `<span class="block text-xs text-slate-400">${employeePosition}</span>` : ''}
+                            </td>
+                        `;
+
+                        criteriaData.forEach(c => {
+                            const existingValue = ratingsData[employeeId]?.[c.id] ?? '';
+                            cellsHtml += `
+                                <td class="px-6 py-4">
+                                    <input type="number" name="ratings[${employeeId}][${c.id}]"
+                                        value="${existingValue}" step="0.01" min="0" required
+                                        class="w-24 px-3 py-2 rounded-lg border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-center text-sm">
+                                </td>
+                            `;
+                        });
+
+                        cellsHtml += `
+                            <td class="px-4 py-4 text-center">
+                                <button type="button" onclick="removeEmployee(this, ${employeeId})" class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="Hapus dari penilaian">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                    </svg>
+                                </button>
+                            </td>
+                        `;
+
+                        row.innerHTML = cellsHtml;
+                        tbody.appendChild(row);
+
+                        // Disable option in dropdown
+                        selectedOption.disabled = true;
+                        selectedOption.classList.add('hidden');
+                        selector.value = '';
+
+                        updateEmptyState();
+                    }
+
+                    // Mark existing employees as disabled in dropdown on load
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const existingRows = document.querySelectorAll('.employee-row');
+                        const selector = document.getElementById('employeeSelector');
+
+                        existingRows.forEach(row => {
+                            const id = row.dataset.employeeId;
+                            const option = selector.querySelector(`option[value="${id}"]`);
+                            if (option) {
+                                option.disabled = true;
+                                option.classList.add('hidden');
+                            }
+                        });
+
+                        updateEmptyState();
+                    });
+                </script>
     @endif
 @endsection
