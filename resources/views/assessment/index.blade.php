@@ -60,6 +60,29 @@
                 </div>
             </div>
 
+            <!-- Skala Penilaian Info -->
+            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+                <h3 class="text-sm font-semibold text-amber-800 mb-3">📊 Skala Penilaian</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-amber-200">
+                                <th class="text-left py-2 px-3 font-semibold text-amber-900">Skala Nilai</th>
+                                <th class="text-left py-2 px-3 font-semibold text-amber-900">Keterangan</th>
+                                <th class="text-left py-2 px-3 font-semibold text-amber-900">Bobot</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-amber-800">
+                            <tr><td class="py-1.5 px-3">1 - 20</td><td class="py-1.5 px-3">Sangat Rendah</td><td class="py-1.5 px-3 font-medium">1</td></tr>
+                            <tr><td class="py-1.5 px-3">21 - 40</td><td class="py-1.5 px-3">Rendah</td><td class="py-1.5 px-3 font-medium">2</td></tr>
+                            <tr><td class="py-1.5 px-3">41 - 60</td><td class="py-1.5 px-3">Cukup</td><td class="py-1.5 px-3 font-medium">3</td></tr>
+                            <tr><td class="py-1.5 px-3">61 - 80</td><td class="py-1.5 px-3">Baik</td><td class="py-1.5 px-3 font-medium">4</td></tr>
+                            <tr><td class="py-1.5 px-3">81 - 100</td><td class="py-1.5 px-3">Sangat Baik</td><td class="py-1.5 px-3 font-medium">5</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <!-- Main Assessment Form -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-100">
                 <div class="p-6 border-b border-slate-100 flex items-center justify-between">
