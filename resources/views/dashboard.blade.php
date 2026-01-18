@@ -79,13 +79,6 @@
                     <span class="font-semibold">Periode Aktif:</span> {{ $activePeriod->name }}
                 </p>
             </div>
-        @else
-            <div class="mt-6 p-4 bg-amber-50 rounded-xl border border-amber-100">
-                <p class="text-sm text-amber-700">
-                    <span class="font-semibold">Perhatian:</span> Belum ada periode aktif. Silakan tambahkan periode terlebih
-                    dahulu.
-                </p>
-            </div>
         @endif
     </div>
 @endsection
