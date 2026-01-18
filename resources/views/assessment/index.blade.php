@@ -109,14 +109,12 @@
 
             <!-- Main Assessment Form -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-100">
-                <div class="p-6 border-b border-slate-100 flex items-center justify-between">
-                    <h2 class="text-lg font-semibold text-slate-800">Input Nilai Pegawai</h2>
-
-                    <!-- Period Selector -->
+                <div class="p-6 border-b border-slate-100 flex items-center justify-between flex-wrap gap-4">
+                    <!-- Period Selector (LEFT) -->
                     <form method="GET" action="{{ route('assessment.index') }}" class="flex items-center gap-2">
                         <label class="text-sm text-slate-600">Periode:</label>
                         <select name="period_id" onchange="this.form.submit()"
-                            class="px-4 py-2 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-sm">
+                            class="min-w-[250px] px-4 py-2 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-sm">
                             @foreach($periods as $period)
                                 <option value="{{ $period->id }}" {{ $selectedPeriod && $selectedPeriod->id == $period->id ? 'selected' : '' }}>
                                     {{ $period->name }}
@@ -124,6 +122,8 @@
                             @endforeach
                         </select>
                     </form>
+
+                    <h2 class="text-lg font-semibold text-slate-800">Input Nilai Pegawai</h2>
                 </div>
 
                 <form action="{{ route('assessment.store') }}" method="POST" id="assessmentForm">
