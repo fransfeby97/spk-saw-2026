@@ -109,8 +109,10 @@
 
             <!-- Main Assessment Form -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-100">
-                <div class="p-6 border-b border-slate-100 flex items-center justify-between flex-wrap gap-4">
-                    <!-- Period Selector (LEFT) -->
+                <div class="p-6 border-b border-slate-100 flex items-center flex-wrap gap-4">
+                    <h2 class="text-lg font-semibold text-slate-800">Input Nilai Pegawai</h2>
+
+                    <!-- Period Selector -->
                     <form method="GET" action="{{ route('assessment.index') }}" class="flex items-center gap-2">
                         <label class="text-sm text-slate-600">Periode:</label>
                         <select name="period_id" onchange="this.form.submit()"
@@ -122,8 +124,6 @@
                             @endforeach
                         </select>
                     </form>
-
-                    <h2 class="text-lg font-semibold text-slate-800">Input Nilai Pegawai</h2>
                 </div>
 
                 <form action="{{ route('assessment.store') }}" method="POST" id="assessmentForm">
@@ -216,118 +216,118 @@
         </div>
 
         <script>
-             const criteriaData = @json($criteria);
-                    const ratingsData = @json($ratings);
+            const criteriaData = @json($criteria);
+            const ratingsData = @json($ratings);
 
-                    function updateEmptyState() {
-                        const tbody = document.getElementById('employeeTableBody');
-                        const emptyState = document.getElementById('emptyState');
-                        const table = document.getElementById('assessmentTable');
+            function updateEmptyState() {
+                const tbody = document.getElementById('employeeTableBody');
+                const emptyState = document.getElementById('emptyState');
+                const table = document.getElementById('assessmentTable');
 
-                        if (tbody.children.length === 0) {
-                            emptyState.classList.remove('hidden');
-                            table.classList.add('hidden');
-                        } else {
-                            emptyState.classList.add('hidden');
-                            table.classList.remove('hidden');
-                        }
+                if (tbody.children.length === 0) {
+                    emptyState.classList.remove('hidden');
+                    table.classList.add('hidden');
+                } else {
+                    emptyState.classList.add('hidden');
+                    table.classList.remove('hidden');
+                }
+            }
+
+            function removeEmployee(btn, employeeId) {
+                const row = btn.closest('tr');
+                row.remove();
+
+                // Show the employee back in dropdown
+                const selector = document.getElementById('employeeSelector');
+                const option = selector.querySelector(`option[value="${employeeId}"]`);
+                if (option) {
+                    option.disabled = false;
+                    option.classList.remove('hidden');
+                }
+
+                updateEmptyState();
+            }
+
+            function addEmployee() {
+                const selector = document.getElementById('employeeSelector');
+                const selectedOption = selector.options[selector.selectedIndex];
+
+                if (!selectedOption.value) {
+                    alert('Pilih pegawai terlebih dahulu');
+                    return;
+                }
+
+                const employeeId = selectedOption.value;
+                const employeeName = selectedOption.dataset.name;
+                const employeePosition = selectedOption.dataset.position;
+
+                // Check if already exists
+                if (document.querySelector(`tr[data-employee-id="${employeeId}"]`)) {
+                    alert('Pegawai sudah ada dalam daftar');
+                    return;
+                }
+
+                // Create new row
+                const tbody = document.getElementById('employeeTableBody');
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-slate-50 transition-colors employee-row';
+                row.dataset.employeeId = employeeId;
+
+                let cellsHtml = `
+                                    <td class="px-6 py-4 text-sm font-medium text-slate-800 sticky left-0 bg-white">
+                                        ${employeeName}
+                                        ${employeePosition ? `<span class="block text-xs text-slate-400">${employeePosition}</span>` : ''}
+                                    </td>
+                                `;
+
+                criteriaData.forEach(c => {
+                    const existingValue = ratingsData[employeeId]?.[c.id] ?? '';
+                    cellsHtml += `
+                                        <td class="px-6 py-4">
+                                            <input type="number" name="ratings[${employeeId}][${c.id}]"
+                                                value="${existingValue}" step="0.01" min="0" required
+                                                class="w-24 px-3 py-2 rounded-lg border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-center text-sm">
+                                        </td>
+                                    `;
+                });
+
+                cellsHtml += `
+                                    <td class="px-4 py-4 text-center">
+                                        <button type="button" onclick="removeEmployee(this, ${employeeId})" class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="Hapus dari penilaian">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </button>
+                                    </td>
+                                `;
+
+                row.innerHTML = cellsHtml;
+                tbody.appendChild(row);
+
+                // Disable option in dropdown
+                selectedOption.disabled = true;
+                selectedOption.classList.add('hidden');
+                selector.value = '';
+
+                updateEmptyState();
+            }
+
+            // Mark existing employees as disabled in dropdown on load
+            document.addEventListener('DOMContentLoaded', function () {
+                const existingRows = document.querySelectorAll('.employee-row');
+                const selector = document.getElementById('employeeSelector');
+
+                existingRows.forEach(row => {
+                    const id = row.dataset.employeeId;
+                    const option = selector.querySelector(`option[value="${id}"]`);
+                    if (option) {
+                        option.disabled = true;
+                        option.classList.add('hidden');
                     }
+                });
 
-                    function removeEmployee(btn, employeeId) {
-                        const row = btn.closest('tr');
-                        row.remove();
-
-                        // Show the employee back in dropdown
-                        const selector = document.getElementById('employeeSelector');
-                        const option = selector.querySelector(`option[value="${employeeId}"]`);
-                        if (option) {
-                            option.disabled = false;
-                            option.classList.remove('hidden');
-                        }
-
-                        updateEmptyState();
-                    }
-
-                    function addEmployee() {
-                        const selector = document.getElementById('employeeSelector');
-                        const selectedOption = selector.options[selector.selectedIndex];
-
-                        if (!selectedOption.value) {
-                            alert('Pilih pegawai terlebih dahulu');
-                            return;
-                        }
-
-                        const employeeId = selectedOption.value;
-                        const employeeName = selectedOption.dataset.name;
-                        const employeePosition = selectedOption.dataset.position;
-
-                        // Check if already exists
-                        if (document.querySelector(`tr[data-employee-id="${employeeId}"]`)) {
-                            alert('Pegawai sudah ada dalam daftar');
-                            return;
-                        }
-
-                        // Create new row
-                        const tbody = document.getElementById('employeeTableBody');
-                        const row = document.createElement('tr');
-                        row.className = 'hover:bg-slate-50 transition-colors employee-row';
-                        row.dataset.employeeId = employeeId;
-
-                        let cellsHtml = `
-                            <td class="px-6 py-4 text-sm font-medium text-slate-800 sticky left-0 bg-white">
-                                ${employeeName}
-                                ${employeePosition ? `<span class="block text-xs text-slate-400">${employeePosition}</span>` : ''}
-                            </td>
-                        `;
-
-                        criteriaData.forEach(c => {
-                            const existingValue = ratingsData[employeeId]?.[c.id] ?? '';
-                            cellsHtml += `
-                                <td class="px-6 py-4">
-                                    <input type="number" name="ratings[${employeeId}][${c.id}]"
-                                        value="${existingValue}" step="0.01" min="0" required
-                                        class="w-24 px-3 py-2 rounded-lg border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-center text-sm">
-                                </td>
-                            `;
-                        });
-
-                        cellsHtml += `
-                            <td class="px-4 py-4 text-center">
-                                <button type="button" onclick="removeEmployee(this, ${employeeId})" class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="Hapus dari penilaian">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                                    </svg>
-                                </button>
-                            </td>
-                        `;
-
-                        row.innerHTML = cellsHtml;
-                        tbody.appendChild(row);
-
-                        // Disable option in dropdown
-                        selectedOption.disabled = true;
-                        selectedOption.classList.add('hidden');
-                        selector.value = '';
-
-                        updateEmptyState();
-                    }
-
-                    // Mark existing employees as disabled in dropdown on load
-                    document.addEventListener('DOMContentLoaded', function() {
-                        const existingRows = document.querySelectorAll('.employee-row');
-                        const selector = document.getElementById('employeeSelector');
-
-                        existingRows.forEach(row => {
-                            const id = row.dataset.employeeId;
-                            const option = selector.querySelector(`option[value="${id}"]`);
-                            if (option) {
-                                option.disabled = true;
-                                option.classList.add('hidden');
-                            }
-                        });
-
-                        updateEmptyState();
-                    });
-                </script>
+                updateEmptyState();
+            });
+        </script>
     @endif
 @endsection
