@@ -221,7 +221,7 @@
     </div>
 
     <div class="signature-section">
-        <p class="date-location">Jakarta, {{ now()->translatedFormat('d F Y') }}</p>
+        <p class="date-location">Pekanbaru, {{ now()->translatedFormat('d F Y') }}</p>
         <div class="signature-row">
             <div class="signature-box">
                 <p style="margin-bottom: 3px; font-size: 10px;">Mengetahui,</p>
